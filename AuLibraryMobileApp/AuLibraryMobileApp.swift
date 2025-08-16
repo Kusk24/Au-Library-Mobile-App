@@ -1,6 +1,6 @@
 //
-//  Au_Library_Mobile_AppApp.swift
-//  Au-Library-Mobile-App
+//  AuLibraryMobileAppApp.swift
+//  AuLibraryMobileApp
 //
 //  Created by Win Yu Maung on 07/08/2025.
 //

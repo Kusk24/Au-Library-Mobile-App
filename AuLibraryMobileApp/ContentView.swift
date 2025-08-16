@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Au-Library-Mobile-App
+//  AuLibraryMobileApp
 //
 //  Created by Win Yu Maung on 07/08/2025.
 //
