@@ -1,0 +1,39 @@
+# Xcode workspace user data
+xcuserdata/
+*.xcuserstate
+
+# Build products
+build/
+DerivedData/
+
+# iOS specific
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Provisioning profiles & signing
+*.mobileprovision
+*.provisionprofile
+
+# Swift Package Manager
+.swiftpm/
+.build/
+Packages/
+Package.resolved
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Other
+*.orig
+*.DS_Store
