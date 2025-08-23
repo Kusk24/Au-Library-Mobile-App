@@ -18,6 +18,7 @@ struct MyBooksView: View {
                 Text("My Books")
                     .font(.largeTitle.bold())
                     .foregroundStyle(.red)
+                    .padding(15)
                 
                 Picker("Filter", selection: $selected){
                     ForEach(BookStatus.allCases){ s in
