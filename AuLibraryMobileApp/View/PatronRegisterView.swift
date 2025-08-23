@@ -23,13 +23,27 @@ struct PatronRegisterView: View {
     @State private var patronLevel: String = ""
     @State private var location: String = ""
     
-    
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     
     
     let types = ["Undergraduate", "Graduate", "Staff"]
     let levels = ["VMES", "MSME", "Archi"]
     let locations  = ["Suvarnabhumi", "Hua Mak", "Off-campus"]
     
+    // MARK: Validation
+    private var isEmailValid: Bool { isValidEmail(email) }
+    private var isRequiredFilled: Bool {
+        !firstName.isEmpty &&
+        !lastName.isEmpty &&
+        !patronId.isEmpty &&
+        !phoneNumber.isEmpty &&
+        !email.isEmpty &&
+        !patronType.isEmpty &&
+        !patronLevel.isEmpty &&
+        !location.isEmpty
+    }
+    private var isFormValid: Bool { isRequiredFilled && isEmailValid }
     
     @FocusState private var focusField: Field?
     
@@ -180,29 +194,52 @@ struct PatronRegisterView: View {
             // Create Button
             Button("Create Profile") {
                 // Go to Home Page()
-                if firstName.isEmpty { focusField = .firstName }
-                else if lastName.isEmpty { focusField = .lastName }
-                else if patronId.isEmpty { focusField = .patronId }
-                else if phoneNumber.isEmpty { focusField = .phoneNumber }
-                else if !isValidEmail(email) { focusField = .email }
-                else {
-                    session.completeRegistration()
-                }
-                
+                submit()
             }
             .fontWeight(.bold)
             .buttonStyle(.borderedProminent)
             .controlSize(.large)
             .tint(.red)
         }
-        .toolbar {                               // keyboard "Done" button
+        .toolbar { // keyboard "Done" button
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
                 Button("Done") { focusField = nil }
             }
         }
+        .alert("Please check your details",
+               isPresented: $showAlert) {
+            Button("OK", role: .cancel) { }
+        } message: {
+            Text(alertMessage)
+        }
         
-        
+    }
+    private func submit() {
+        guard isFormValid else {
+            // Error Messages
+            var issues: [String] = []
+            if firstName.isEmpty { issues.append("First name") }
+            if lastName.isEmpty  { issues.append("Last name") }
+            if patronId.isEmpty  { issues.append("Patron ID") }
+            if phoneNumber.isEmpty { issues.append("Phone number") }
+            if email.isEmpty || !isEmailValid { issues.append("Valid email") }
+            if patronType.isEmpty { issues.append("Patron type") }
+            if patronLevel.isEmpty { issues.append("Patron level") }
+            if location.isEmpty { issues.append("Location") }
+            
+            alertMessage = "Missing or invalid: " + issues.joined(separator: ", ")
+            showAlert = true
+            
+            // Move focus to the first invalid field
+            if firstName.isEmpty { focusField = .firstName }
+            else if lastName.isEmpty { focusField = .lastName }
+            else if patronId.isEmpty { focusField = .patronId }
+            else if phoneNumber.isEmpty { focusField = .phoneNumber }
+            else if !isEmailValid { focusField = .email }
+            return
+        }
+        session.completeRegistration()
         
     }
     
