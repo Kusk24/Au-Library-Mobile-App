@@ -18,6 +18,7 @@ final class AppSession: ObservableObject {
     
     func signIn() {
         screen = .register
+        // MARK: Later implementing the logic of checking known patron or unknown patron
     }
     
     func completeRegistration() {

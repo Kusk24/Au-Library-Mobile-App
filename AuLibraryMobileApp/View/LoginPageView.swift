@@ -23,6 +23,8 @@ struct SafariView: UIViewControllerRepresentable {
 }
 
 struct LoginPageView: View {
+    
+    @EnvironmentObject var session: AppSession
     @State var isShow: Bool = false
     
     
@@ -40,6 +42,7 @@ struct LoginPageView: View {
             .offset(y: -50)
             
             Button{
+                session.signIn()
                 isShow = true
             } label: {
                 HStack{
@@ -64,4 +67,5 @@ struct LoginPageView: View {
 
 #Preview {
     LoginPageView()
+        .environmentObject(AppSession())
 }
