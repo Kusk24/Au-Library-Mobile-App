@@ -15,46 +15,45 @@
 import SwiftUI
 
 struct CategoryView: View {
-//    let category: BookCategory
-//    @ObservedObject var viewModel: BookViewModel
-    
-    var body: some View {
-        VStack(alignment: .leading) {
-            
-            // Header
-            HStack {
-                Button(action: {
-                    // handle back navigation
-                }) {
-                    Image(systemName: "chevron.backward")
-                        .font(.title3)
-                        .foregroundColor(.red)
-                }
-                Text("category.displayName")
-                    .font(.title2)
-                    .bold()
-                    .padding(.leading, 4)
-                    .foregroundColor(.red)
-                Spacer()
-            }
-            .padding(.horizontal)
-            .padding(.top)
-            
   
-            ScrollView {
-                LazyVStack() {
-                    BookCard()
+    @State private var isFilterActive = false
+    var books = demoBooks
+
+    var body: some View {
+        NavigationStack {
+            List(books) { book in
+                BookCard(book: book)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(.init(top: 8, leading: 16, bottom: 8, trailing: 16))
+            }
+            .listStyle(.plain)
+            .navigationTitle("Fiction Books")
+            .navigationBarTitleDisplayMode(.inline)
+            
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {}) {
+                        Image(systemName: "chevron.backward")
+                            .foregroundColor(Color(red: 204/255, green: 0/255, blue: 0/255))
+                    }
                 }
-                .padding()
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button { isFilterActive.toggle() } label: {
+                        Image(systemName: "slider.vertical.3")
+                            .symbolRenderingMode(.hierarchical)
+                            .foregroundStyle(isFilterActive ? .green : .secondary)
+                    }
+                }
             }
         }
-        
-        
+
     }
 }
 
 
 struct BookCard: View {
+    
+    let book: Book
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             HStack {
@@ -62,29 +61,41 @@ struct BookCard: View {
                     .resizable()
                     .scaledToFit()
                     .frame(height: 60)
-                    .foregroundColor(.red)
+                    .foregroundColor(Color(red: 204/255, green: 0/255, blue: 0/255))
                     .padding(.top, 8)
+                    .frame(maxWidth: 100, minHeight: 170)
+                    .background(Color(.systemBackground))
+                    .cornerRadius(12)
+                    .shadow(radius: 2)
+                    
+                
+                
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("book.title, book.title,booktitle book.titlebook.titlebook.titlebook.titlebook.title")
+                VStack(alignment: .leading) {
+                    Text(book.title)
                         .font(.headline)
                         .lineLimit(2)
 
-                    Text("book.author, book.title,booktitle book.titlebook.titlebook.titlebook.titlebook.title")
+                    Text("Author: \(book.author)")
                         .font(.subheadline)
                         .foregroundColor(.secondary)
                         .lineLimit(1)
 
-                    Text("book.subject, book.title,booktitle book.titlebook.titlebook.titlebook.titlebook.title")
-                        .font(.caption)
+                    Text("Subject: \(book.author)")
+                        .font(.subheadline)
                         .foregroundColor(.gray)
-                        .frame(maxWidth: 150)
                         .lineLimit(1)
+                    
+                    Text("Call Number: \(book.callNo)")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .lineLimit(1)
+                        .padding(.bottom, 16)
                 }
 
                 Spacer()
             }
-            .padding()
+
 
     
             Text("Available")
@@ -95,12 +106,15 @@ struct BookCard: View {
                 .background(Color.green)
                 .foregroundColor(.white)
                 .cornerRadius(12)
-                .padding(.horizontal, 8)
+              
         }
-        .frame(maxWidth: .infinity, minHeight: 150)
-        .background(Color(.systemBackground))
-        .cornerRadius(12)
-        .shadow(color: .gray.opacity(0.2), radius: 5, x: 0, y: 5)
+        
+        Divider()
+            .frame(height: 1)
+            .background(Color.gray)
+            .padding(.vertical)
+        
+        
     }
 }
 
