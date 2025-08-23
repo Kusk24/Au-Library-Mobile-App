@@ -10,6 +10,7 @@ import SwiftUI
 struct MyBooksView: View {
     
     @State var selected: BookStatus = .all
+    @State var books : [BookModel] = SampleData.books
     
     var body: some View {
         NavigationStack {
@@ -25,10 +26,26 @@ struct MyBooksView: View {
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
                 
-            
+                ScrollView{
+                    LazyVStack{
+                        ForEach(filteredBooks) {
+                            book in BookCardView(book: book)
+                                .padding(.horizontal)
+                        }
+                    }
+                }
             }
         }
         Spacer()
+    }
+    
+    
+    
+    private var filteredBooks: [BookModel] {
+        switch selected {
+        case .all: return books
+        default:   return books.filter { $0.status == selected }
+        }
     }
 }
 
