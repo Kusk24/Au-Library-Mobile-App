@@ -13,7 +13,8 @@ struct Au_Library_Mobile_AppApp: App {
 
     var body: some Scene {
         WindowGroup {
-            Home()
+            ContentView()
+                .environmentObject(cartManager)
         }
     }
 }
