@@ -8,28 +8,30 @@
 import SwiftUI
 
 struct ScanPageView: View {
-    // State to hold scanned code
+    @EnvironmentObject var cartManager: CartAddedBooksManager
+
+    // Binding-style scanner code (simulator shows a mock)
     @State private var scannedCode: String? = {
         #if targetEnvironment(simulator)
-        return "951.9 H477 1997" // simulate a scanned code for preview/simulator
+        return "951.9 H477 1997"   // mock so you see data on simulator
         #else
         return nil
         #endif
     }()
-    
-    @State private var checkedInBooks: [Book] = []
+
+    // Navigate to the list after checkout
+    @State private var goToCartList = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 20) {
-                // Use ScannerView on a real device
+                // Scanner area
                 #if !targetEnvironment(simulator)
                 ScannerView(scannedCode: $scannedCode)
                     .frame(height: 300)
                     .cornerRadius(12)
                     .padding()
                 #else
-                // Placeholder for simulator preview
                 Rectangle()
                     .fill(Color.gray.opacity(0.2))
                     .frame(height: 300)
@@ -38,7 +40,6 @@ struct ScanPageView: View {
                     .padding()
                 #endif
 
-                // Show scanned code and book info
                 if let code = scannedCode {
                     Text("Code: \(code)")
                         .font(.subheadline)
@@ -47,69 +48,59 @@ struct ScanPageView: View {
                     if let book = demoBooks.first(where: { $0.callNo == code || $0.ISBN == code }) {
                         VStack(alignment: .leading, spacing: 5) {
                             Text("Title: \(book.title)")
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
                             Text("Author: \(book.author)")
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
                             Text("Edition: \(book.edition)")
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
                         }
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
                         .padding()
                         .background(Color.red.opacity(0.2))
                         .cornerRadius(8)
 
-                        Button("Check In") {
-                            if !checkedInBooks.contains(where: { $0.id == book.id }) {
-                                checkedInBooks.append(book)
-                                scannedCode = nil
-                            }
+                        Button {
+                            cartManager.add(book)
+                            scannedCode = nil
+                            goToCartList = true    // trigger navigation
+                        } label: {
+                            Label("Add to cart", systemImage: "cart.fill") // SF Symbol for cart
                         }
-                        .padding()
                         .buttonStyle(.borderedProminent)
                         .tint(.red)
+                        .padding(.top, 4)
+                        
                     } else {
                         Text("Book not found in database")
                             .foregroundColor(.red)
                             .padding()
                     }
                 }
-                
-                // Checked-in books list
-                if !checkedInBooks.isEmpty {
-                    Text("Checked-in Books:")
-                        .font(.headline)
-                        .padding(.top)
-
-                    List(checkedInBooks) { book in
-                        VStack(alignment: .leading) {
-                            Text(book.title)
-                                .font(.headline)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
-                            Text("Author: \(book.author)")
-                                .font(.subheadline)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
-                        }
-
-                    }
-                    .frame(height: 200) // optional: limit list height
-                }
 
                 Spacer()
             }
             .padding()
             .navigationTitle("Scan Book")
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.large) // big & bold
+            //  iOS16+ replacement for deprecated NavigationLink
+            .navigationDestination(isPresented: $goToCartList) {
+                CartListView()
+                    .environmentObject(cartManager)
+            }
         }
     }
 }
 
-// MARK: - Preview
-struct ScanPageView_Previews: PreviewProvider {
-    static var previews: some View {
+#Preview {
+    let manager = CartAddedBooksManager()
+    
+    // Pre-fill some books to simulate an existing cart
+    manager.cartAddedBooks = [
+        demoBooks[0],  // first book
+        demoBooks[1],  // second book thats the same as scanned book
+        demoBooks[4]   // third book
+    ]
+    
+    return NavigationStack {
         ScanPageView()
-    }
+            .environmentObject(manager)
+    }.tint(.red)
 }
