@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Profile: View {
-    
+    @EnvironmentObject var session: AppSession
     @State private var notificationsOn = false
     @State private var darkThemeOn = false
     
@@ -48,7 +48,7 @@ struct Profile: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 20)
 
-            SettingsCard(notificationsOn: $notificationsOn, darkThemeOn: $darkThemeOn, signOut: { }).padding(.horizontal,20)
+            SettingsCard(notificationsOn: $notificationsOn, darkThemeOn: $darkThemeOn, signOut: { session.signOut() }).padding(.horizontal,20)
             
             Spacer(minLength: 0)
         }
@@ -146,4 +146,5 @@ struct SettingsCard: View {
 
 #Preview {
     Profile()
+        .environmentObject(AppSession())
 }
