@@ -13,9 +13,7 @@ struct Au_Library_Mobile_AppApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ScanPageView()
-                .tint(.red)
-                .environmentObject(cartManager) // <-- inject it here
+            Home()
         }
     }
 }
