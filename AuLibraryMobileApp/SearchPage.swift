@@ -14,7 +14,20 @@ struct SearchPage: View {
         NavigationStack {
             VStack{
                 List(filteredItems, id: \.id) { item in
-                    Text(item.title)
+                    HStack(spacing : 20){
+                        Image(systemName: "book.closed")
+                            .frame(width: 80,height: 100)
+                            .background(Color.gray)
+                        VStack(alignment: .leading, spacing: 10){
+                                Text(item.title)
+                                .font(Font.caption.bold())
+                                Text("By "+item.author)
+                                    .font(Font.caption2)
+                            Text("published date: "+String(item.date))
+                                .font(Font.caption2)
+                        }
+                    }.frame(maxWidth: .infinity, alignment: .leading)
+                    
                 }
             }
         }.searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search")
