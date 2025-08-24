@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct Au_Library_Mobile_AppApp: App {
+    @StateObject private var cartManager = CartAddedBooksManager() // <-- create the shared manager
+
     var body: some Scene {
         WindowGroup {
             Home()
