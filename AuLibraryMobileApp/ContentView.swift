@@ -9,10 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        MyBooksView()
+        Home()
     }
 }
 
-#Preview {
-    ContentView()
-}
+#Preview { ContentView() }
