@@ -51,7 +51,7 @@ struct CategoryView: View {
 }
 
 
-struct BookCard: View {
+struct BookCardII: View {
     
     let book: Book
     var body: some View {

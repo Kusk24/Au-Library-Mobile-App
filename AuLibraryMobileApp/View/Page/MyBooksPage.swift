@@ -15,17 +15,7 @@ struct MyBooksView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading){
-                Text("My Books")
-                    .font(.largeTitle.bold())
-                    .foregroundStyle(.red)
-                    .padding(15)
-                
-                Picker("Filter", selection: $selected){
-                    ForEach(BookStatus.allCases){ s in
-                        Text(s.title).tag(s)}
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
+                TopBar(title: "My Books", cart: cart, favorite: favorite)
                 
                 ScrollView{
                     LazyVStack{

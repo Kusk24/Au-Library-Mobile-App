@@ -31,28 +31,6 @@ struct MainTabView: View {
                 Profile()
             }
             
-            
-            
-//            Home()
-//                .tabItem {
-//                    Label("Home", systemImage: "house")
-//                }
-//            MyBooksView()
-//                .tabItem {
-//                    Label("MyBook", systemImage: "book")
-//                }
-//            ScanPageView()
-//                .tabItem {
-//                    Label("ScanPage", systemImage: "barcode.viewfinder")
-//                }
-//            NotificationPage()
-//                .tabItem {
-//                    Label("Notification", systemImage: "bell")
-//                }
-//            Profile()
-//                .tabItem {
-//                    Label("Profile", systemImage: "person")
-//                }
         }
     }
 }

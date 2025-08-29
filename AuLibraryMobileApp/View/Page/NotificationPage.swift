@@ -12,36 +12,7 @@ struct NotificationPage: View {
         NavigationView {
             VStack(spacing: 0) {
                 // Header
-                HStack {
-                    Text("Notifications")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
-                    
-                    Spacer()
-                    
-                    // Cart and Star icons
-                    HStack(spacing: 16) {
-                        Button(action: {
-                            // Cart action - to be implemented
-                        }) {
-                            Image(systemName: "cart")
-                                .font(.title3)
-                                .foregroundColor(.black)
-                        }
-                        
-                        Button(action: {
-                            // Star/Favorites action - to be implemented
-                        }) {
-                            Image(systemName: "star")
-                                .font(.title3)
-                                .foregroundColor(.black)
-                        }
-                    }
-                }
-                .padding(.horizontal, 16)
-                .padding(.top, 10)
-                .padding(.bottom, 20)
+                TopBar(title: "Notification", cart: cart, favorite: favorite)
                 
                 // Notification List - Skeleton
                 ScrollView {
