@@ -71,6 +71,7 @@ struct CartListView: View {
                 }
             }
         }
+        .toolbar(.hidden, for: .tabBar) // Hide tab bar on this page
     }
 }
 

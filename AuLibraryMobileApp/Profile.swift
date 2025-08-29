@@ -14,7 +14,7 @@ struct Profile: View {
     
     var body: some View {
         VStack(spacing: 16){
-            TopBar(title: "Profile", cart: { }, favorite: { })
+            TopBar(title: "Profile")
             HStack(alignment: .center, spacing: 16) {
                 Image(systemName: "person.circle")
                     .resizable()

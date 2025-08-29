@@ -12,7 +12,7 @@ struct NotificationPage: View {
         NavigationView {
             VStack(spacing: 0) {
                 // Header
-                TopBar(title: "Notification", cart: cart, favorite: favorite)
+                TopBar(title: "Notification")
                 
                 // Notification List - Skeleton
                 ScrollView {

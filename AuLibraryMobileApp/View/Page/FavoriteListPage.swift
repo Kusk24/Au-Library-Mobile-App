@@ -12,29 +12,30 @@ struct FavoriteList: View {
     let favoriteBooks: [Book] = Array(demoBooks.prefix(4))
     
     var body: some View {
-        NavigationView {
-            VStack(spacing: 0) {
+        NavigationStack {
+            VStack() {
                 // Book List
                 ScrollView {
-                    LazyVStack(spacing: 16) {
-                        ForEach(favoriteBooks) { book in
-                            BookCard(book: book)
-                        }
+                    
+                    ForEach(favoriteBooks) { book in
+                        BookCard(book: book)
                     }
-                    .padding(.horizontal, 16)
+                    
                 }
                 
                 Spacer()
             }
-            .background(Color.gray.opacity(0.1))
         }
+        .navigationTitle("Favorite Books")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar(.hidden, for: .tabBar) // Hide tab bar on this page
     }
 }
 //struct BookCard: View {
-//    
+//
 //    let book: Book
 //    @State private var isFavorited: Bool = true
-//    
+//
 //    var body: some View {
 //        HStack {
 //            cover
@@ -43,15 +44,15 @@ struct FavoriteList: View {
 //                    .font(.headline)
 //                    .foregroundStyle(.primary)
 //                    .lineLimit(2)
-//                
-//                
+//
+//
 //                HStack(spacing: 8){
 //                    Image(systemName: "mappin.and.ellipse")
 //                    Text("Location : \(book.callNo)")
 //                }
 //                .font(.system(size: 13))
 //                .foregroundStyle(.secondary)
-//                
+//
 //                HStack(spacing: 8){
 //                    Image(systemName: "books.vertical.fill")
 //                    Text("Call No. \(book.callNo)")
@@ -77,26 +78,26 @@ struct FavoriteList: View {
 //                .padding(.trailing, 8),
 //            alignment: .topTrailing
 //        )
-//        
+//
 //    }
-//    
+//
 //    private var cover: some View {
 //        ZStack{
 //            RoundedRectangle(cornerRadius: 8)
-//            
+//
 //                .frame(width: 80, height: 100)
-//            
+//
 //                .overlay(
 //                    VStack(spacing: 4) {
 //                        Image(systemName: "book.closed")
 //                            .font(.title2)
 //                            .foregroundColor(.white)
-//                        
+//
 //                        Text("BOOK")
 //                            .font(.caption2)
 //                            .fontWeight(.bold)
 //                            .foregroundColor(.white)
-//                        
+//
 //                    }
 //                )
 //                .shadow(color: .gray.opacity(0.3), radius: 2, x: 0, y: 1)

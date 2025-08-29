@@ -3,31 +3,32 @@ import SwiftUI
 struct Home: View {
     var body: some View {
         
-        VStack(spacing: 16){
-            TopBar(title: "Home", cart: cart, favorite: favorite)
-            SearchBar(placeholder:"Search by title, author, or category")
-            
-            Text("Categories").font(.system(size: 20, weight: .semibold))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 16)
-                .padding(.top, 16)
-            
-            Text("Borrowed").font(.system(size: 20, weight: .semibold))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 16)
-                .padding(.top, 16)
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
-                    ForEach(0..<10) { bookIndex in
-                        BorrowedBooksCard(bookNumber: bookIndex+1)
+        NavigationStack {
+            VStack(){
+                TopBar(title: "Home")
+                SearchBar(placeholder:"Search by title, author, or category")
+                
+                Text("Categories").font(.system(size: 20, weight: .semibold))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 16)
+                    .padding(.top, 16)
+                
+                Text("Borrowed").font(.system(size: 20, weight: .semibold))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.leading, 16)
+                    .padding(.top, 16)
+                
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 16) {
+                        ForEach(0..<10) { bookIndex in
+                            BorrowedBooksCard(bookNumber: bookIndex+1)
+                        }
                     }
-                }
-            }.padding(.horizontal, 5)
+                }.padding(.horizontal, 5)
+                Spacer()
+            }
         }
-        Spacer()
         .padding(.horizontal, 2)
-        .padding(.top, 5)
         .background(Color(.systemBackground))
     }
 }
@@ -135,10 +136,6 @@ struct BorrowedBooksCard: View {
 //        
 //    }
 //}
-
-func cart(){ /*Cart Place In Here*/ }
-
-func favorite(){ /*Favorite Place Here*/  }
 
 #Preview {
     Home()

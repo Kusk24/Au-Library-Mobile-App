@@ -15,7 +15,7 @@ struct MyBooksView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading){
-                TopBar(title: "My Books", cart: cart, favorite: favorite)
+                TopBar(title: "My Books")
                 
                 Picker("Filter", selection: $selected){
                     ForEach(BookStatus.allCases){ s in

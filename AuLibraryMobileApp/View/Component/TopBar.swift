@@ -10,8 +10,7 @@ import SwiftUI
 struct TopBar: View {
     
     let title: String
-    let cart: () -> Void
-    let favorite: () -> Void
+    
     
     var body: some View {
         HStack(alignment: .center){
@@ -23,24 +22,30 @@ struct TopBar: View {
             Spacer()
             
             HStack(spacing: 16) {
-                Button(action: cart) {
+                NavigationLink(destination: CartListView()) {
                     Image(systemName: "cart")
                         .foregroundColor(.primary)
                         .font(.system(size: 18, weight: .semibold))
-                        .padding(8)
+                        .padding(12) // Increased padding for better touch target
+                        .background(Circle().fill(Color.clear)) // Invisible background for better touch area
+                        .contentShape(Circle()) // Define touch shape
                 }
+                .buttonStyle(PlainButtonStyle()) // Remove default button styling
                 
-                Button(action: favorite) {
+                NavigationLink(destination: FavoriteList()) {
                     Image(systemName: "star.fill")
                         .foregroundColor(.primary)
-
                         .font(.system(size: 18, weight: .semibold))
-                        .padding(8)
+                        .padding(12) // Increased padding for better touch target
+                        .background(Circle().fill(Color.clear)) // Invisible background for better touch area
+                        .contentShape(Circle()) // Define touch shape
                 }
+                .buttonStyle(PlainButtonStyle()) // Remove default button styling
             }
         }
         
         .padding(.horizontal, 20)
         .padding(.vertical, 12)
     }
+    
 }
