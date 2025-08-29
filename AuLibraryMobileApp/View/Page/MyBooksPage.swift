@@ -27,22 +27,24 @@ struct MyBooksView: View {
                 ScrollView{
                     LazyVStack{
                         ForEach(filteredBooks) {
-                            book in BookCardView(book: book)
+                            book in BookCard(bookModel: book)
                                 .padding(.horizontal)
                         }
                     }
                 }
             }
         }
-        Spacer()
+        
     }
     
     
     
     private var filteredBooks: [BookModel] {
         switch selected {
-        case .all: return books
-        default:   return books.filter { $0.status == selected }
+        case .all:
+            return books
+        default:
+            return books.filter { $0.status == selected }
         }
     }
 }
