@@ -46,7 +46,7 @@ struct LoginPageView: View {
                 isShow = true
             } label: {
                 HStack{
-                    Image("microsoft_logo")
+                    Image("Microsoft_logo")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 20, height: 20)

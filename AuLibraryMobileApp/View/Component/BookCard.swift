@@ -29,8 +29,6 @@ struct BookCard: View {
                 Text(book.displayTitle)
                     .font(.headline)
                     .foregroundStyle(.primary)
-                    .lineLimit(2)
-                
                 
                 HStack(spacing: 8){
                     Image(systemName: "mappin.and.ellipse")
@@ -56,9 +54,9 @@ struct BookCard: View {
             Button(action: {
                 isFavorited.toggle()
             }) {
-                Image(systemName: isFavorited ? "heart.fill" : "heart")
-                    .font(.system(size: 14))
-                    .foregroundColor(isFavorited ? .red : .gray)
+                Image(systemName: isFavorited ? "star.fill" : "star")
+                    .font(.system(size: 20))
+                    .foregroundColor(isFavorited ? .yellow : .gray)
             }
                 .padding(.top, 8)
                 .padding(.trailing, 8),
@@ -70,9 +68,8 @@ struct BookCard: View {
     private var cover: some View {
         ZStack{
             RoundedRectangle(cornerRadius: 8)
-            
+                .fill(Color.gray)
                 .frame(width: 80, height: 100)
-            
                 .overlay(
                     VStack(spacing: 4) {
                         Image(systemName: "book.closed")
