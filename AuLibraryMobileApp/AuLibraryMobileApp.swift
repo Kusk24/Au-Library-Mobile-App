@@ -10,10 +10,13 @@ import SwiftUI
 @main
 struct Au_Library_Mobile_AppApp: App {
     @StateObject private var cartManager = CartAddedBooksManager() // <-- create the shared manager
+    @StateObject private var session = AppSession()
 
     var body: some Scene {
         WindowGroup {
-            Home()
+            ContentView()
+                .environmentObject(cartManager)
+                .environmentObject(session)
         }
     }
 }

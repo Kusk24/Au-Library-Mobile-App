@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Profile: View {
-    
+    @EnvironmentObject var session: AppSession
     @State private var notificationsOn = false
     @State private var darkThemeOn = false
     
@@ -48,51 +48,12 @@ struct Profile: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 20)
 
-            SettingsCard(notificationsOn: $notificationsOn, darkThemeOn: $darkThemeOn, signOut: { }).padding(.horizontal,20)
+            SettingsCard(notificationsOn: $notificationsOn, darkThemeOn: $darkThemeOn, signOut: { session.signOut() }).padding(.horizontal,20)
             
             Spacer(minLength: 0)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .background(Color(.systemBackground))
-    }
-}
-
-struct TopBar: View {
-    
-    let title: String
-    let cart: () -> Void
-    let favorite: () -> Void
-    
-    var body: some View {
-        HStack(alignment: .center){
-            Text(title)
-                .font(.system(size: 30, weight: .bold))
-                .foregroundColor(.red)
-                .lineLimit(1)
-            
-            Spacer()
-            
-            HStack(spacing: 16) {
-                Button(action: cart) {
-                    Image(systemName: "cart")
-                        .foregroundColor(.primary)
-                        .font(.system(size: 18, weight: .semibold))
-                        .padding(8)
-                }
-                
-                Button(action: favorite) {
-                    Image(systemName: "star.fill")
-                        .foregroundColor(.primary)
-
-                        .font(.system(size: 18, weight: .semibold))
-                        .padding(8)
-                }
-            }
-        }
-        
-        .padding(.horizontal, 20)
-        .padding(.vertical, 12)
-        .overlay(Divider(), alignment: .top)
     }
 }
 
@@ -185,4 +146,5 @@ struct SettingsCard: View {
 
 #Preview {
     Profile()
+        .environmentObject(AppSession())
 }

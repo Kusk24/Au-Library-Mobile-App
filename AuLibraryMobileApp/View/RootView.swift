@@ -20,9 +20,10 @@ struct RootView: View {
                 PatronRegisterView()
             case .home:
                 // MARK: To Connect with Actual HomeView
-                Text("Home Page")
-                    .navigationTitle("Home")
-                    .navigationBarTitleDisplayMode(.large)
+                MainTabView()
+//                Text("Home Page")
+//                    .navigationTitle("Home")
+//                    .navigationBarTitleDisplayMode(.large)
                 
             }
         }
