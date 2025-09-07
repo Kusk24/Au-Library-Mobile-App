@@ -18,17 +18,18 @@ struct Home: View {
                     .padding(.leading, 16)
                     .padding(.top, 16)
                 
-                ScrollView(.horizontal, showsIndicators: false) {
+                ScrollView(.horizontal, showsIndicators: false, ) {
                     HStack(spacing: 16) {
                         ForEach(0..<10) { bookIndex in
                             BorrowedBooksCard(bookNumber: bookIndex+1)
                         }
                     }
-                }.padding(.horizontal, 5)
+                    .padding(.horizontal)
+                }
                 Spacer()
             }
         }
-        .padding(.horizontal, 2)
+//        .padding(.horizontal, 2)
         .background(Color(.systemBackground))
     }
 }
