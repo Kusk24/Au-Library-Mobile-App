@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NotificationPage: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 0) {
                 // Header
                 TopBar(title: "Notification")
@@ -27,8 +27,7 @@ struct NotificationPage: View {
                 Spacer()
             }
             .background(Color.gray.opacity(0.05))
-        }
-    }
+        }    }
 }
 
 struct NotificationSkeletonCard: View {
