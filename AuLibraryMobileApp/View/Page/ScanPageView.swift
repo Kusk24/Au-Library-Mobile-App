@@ -59,7 +59,6 @@ struct ScanPageView: View {
 
                         Button {
                             cartManager.add(book)
-                            scannedCode = nil
                             goToCartList = true    // trigger navigation
                         } label: {
                             Label("Add to cart", systemImage: "cart.fill") // SF Symbol for cart
