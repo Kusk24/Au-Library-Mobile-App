@@ -13,47 +13,49 @@ struct Profile: View {
     @State private var darkThemeOn = false
     
     var body: some View {
-        VStack(spacing: 16){
-            TopBar(title: "Profile")
-            HStack(alignment: .center, spacing: 16) {
-                Image(systemName: "person.circle")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 90, height: 90)
-                    .foregroundColor(.primary)
-                    .overlay(Circle().stroke(.black, lineWidth: 2))
-                
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("ALICE WELL")
-                        .font(.system(size: 24, weight: .bold))
+        NavigationStack {
+            VStack(spacing: 16){
+                TopBar(title: "Profile")
+                HStack(alignment: .center, spacing: 16) {
+                    Image(systemName: "person.circle")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 90, height: 90)
                         .foregroundColor(.primary)
-                        .underline()
+                        .overlay(Circle().stroke(.black, lineWidth: 2))
                     
-                    Text("6611111")
-                        .font(.system(size: 16))
-                        .foregroundColor(.secondary)
-                }
-                Spacer()
-            }.padding(.horizontal, 20).padding(.top, 4)
-            
-            MajorCard(title: "COMPUTER SCIENCE",subtitle: "SCIENCE AND TECHNOLOGY")
-                .padding(.horizontal, 20)
-
-            Divider().padding(.horizontal, 20)
-            
-            Text("SETTING")
-                .font(.system(size: 14, weight: .semibold))
-                .foregroundColor(.primary)
-                .tracking(1)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 20)
-
-            SettingsCard(notificationsOn: $notificationsOn, darkThemeOn: $darkThemeOn, signOut: { session.signOut() }).padding(.horizontal,20)
-            
-            Spacer(minLength: 0)
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text("ALICE WELL")
+                            .font(.system(size: 24, weight: .bold))
+                            .foregroundColor(.primary)
+                            .underline()
+                        
+                        Text("6611111")
+                            .font(.system(size: 16))
+                            .foregroundColor(.secondary)
+                    }
+                    Spacer()
+                }.padding(.horizontal, 20).padding(.top, 4)
+                
+                MajorCard(title: "COMPUTER SCIENCE",subtitle: "SCIENCE AND TECHNOLOGY")
+                    .padding(.horizontal, 20)
+                
+                Divider().padding(.horizontal, 20)
+                
+                Text("SETTING")
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.primary)
+                    .tracking(1)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 20)
+                
+                SettingsCard(notificationsOn: $notificationsOn, darkThemeOn: $darkThemeOn, signOut: { session.signOut() }).padding(.horizontal,20)
+                
+                Spacer(minLength: 0)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .background(Color(.systemBackground))
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .background(Color(.systemBackground))
     }
 }
 
