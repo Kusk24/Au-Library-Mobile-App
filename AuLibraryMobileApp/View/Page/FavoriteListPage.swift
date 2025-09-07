@@ -32,9 +32,10 @@ struct FavoriteList: View {
                 
                 Spacer()
             }
+            .padding(.horizontal)
+            .navigationTitle("Favorite Books")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("Favorite Books")
-        .navigationBarTitleDisplayMode(.large)
         .toolbar(.hidden, for: .tabBar) // Hide tab bar on this page
     }
 }

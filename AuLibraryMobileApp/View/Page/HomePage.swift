@@ -24,11 +24,11 @@ struct Home: View {
                             BorrowedBooksCard(bookNumber: bookIndex+1)
                         }
                     }
-                }.padding(.horizontal, 5)
+                    .padding(.horizontal)
+                }
                 Spacer()
             }
         }
-        .padding(.horizontal, 2)
         .background(Color(.systemBackground))
     }
 }

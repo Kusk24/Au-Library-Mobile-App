@@ -24,6 +24,7 @@ struct ScanPageView: View {
 
     var body: some View {
         NavigationStack {
+            TopBar(title: "Scan Book")
             VStack(spacing: 20) {
                 // Scanner area
                 #if !targetEnvironment(simulator)
@@ -59,7 +60,6 @@ struct ScanPageView: View {
 
                         Button {
                             cartManager.add(book)
-                            scannedCode = nil
                             goToCartList = true    // trigger navigation
                         } label: {
                             Label("Add to cart", systemImage: "cart.fill") // SF Symbol for cart
@@ -78,8 +78,6 @@ struct ScanPageView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle("Scan Book")
-            .navigationBarTitleDisplayMode(.large) // big & bold
             //  iOS16+ replacement for deprecated NavigationLink
             .navigationDestination(isPresented: $goToCartList) {
                 CartListView()
