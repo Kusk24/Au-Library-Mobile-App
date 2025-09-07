@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BookCard: View {
     
-    let book: any BookDisplayable
+    let book: Book
     @State private var isFavorited: Bool = true
     
     init(book: Book) {
@@ -17,7 +17,7 @@ struct BookCard: View {
         
     }
     
-    init(bookModel: BookModel) {
+    init(bookModel: Book) {
         self.book = bookModel
         
     }
@@ -26,20 +26,20 @@ struct BookCard: View {
         HStack {
             cover
             VStack(alignment: .leading, spacing: 8){
-                Text(book.displayTitle)
+                Text(book.title)
                     .font(.headline)
                     .foregroundStyle(.primary)
                 
                 HStack(spacing: 8){
                     Image(systemName: "mappin.and.ellipse")
-                    Text("Location : \(book.displayCallNo)")
+                    Text("Location : \(book.callNo)")
                 }
                 .font(.system(size: 13))
                 .foregroundStyle(.secondary)
                 
                 HStack(spacing: 8){
                     Image(systemName: "books.vertical.fill")
-                    Text("Call No. \(book.displayCallNo)")
+                    Text("Call No. \(book.callNo)")
                 }
                 .font(.system(size: 13))
                 .foregroundStyle(.secondary)
@@ -65,29 +65,6 @@ struct BookCard: View {
         
     }
     
-    private var cover: some View {
-        ZStack{
-            RoundedRectangle(cornerRadius: 8)
-                .fill(Color.gray)
-                .frame(width: 80, height: 100)
-                .overlay(
-                    VStack(spacing: 4) {
-                        Image(systemName: "book.closed")
-                            .font(.title2)
-                            .foregroundColor(.white)
-                        
-                        Text("BOOK")
-                            .font(.caption2)
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                        
-                    }
-                )
-                .shadow(color: .gray.opacity(0.3), radius: 2, x: 0, y: 1)
-        }
-        .frame(width: 100, height: 120)
-        .clipShape(RoundedRectangle(cornerRadius: 5))
-    }
 }
 
 #Preview {

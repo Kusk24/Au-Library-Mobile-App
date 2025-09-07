@@ -10,7 +10,7 @@ import SwiftUI
 struct MyBooksView: View {
     
     @State var selected: BookStatus = .all
-    @State var books : [BookModel] = SampleData.books
+    @State var books : [Book] = demoBooks
     
     var body: some View {
         NavigationStack {
@@ -26,9 +26,15 @@ struct MyBooksView: View {
                 
                 ScrollView{
                     LazyVStack{
-                        ForEach(filteredBooks) {
-                            book in BookCard(bookModel: book)
-                                .padding(.horizontal)
+                        ForEach(filteredBooks) { book in
+                            NavigationLink(value: book) {
+                                BookCard(book: book)
+                                    .padding(.horizontal)
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                        .navigationDestination(for: Book.self) { book in
+                            BookDetailView(book: book)
                         }
                     }
                 }
@@ -39,7 +45,7 @@ struct MyBooksView: View {
     
     
     
-    private var filteredBooks: [BookModel] {
+    private var filteredBooks: [Book] {
         switch selected {
         case .all:
             return books

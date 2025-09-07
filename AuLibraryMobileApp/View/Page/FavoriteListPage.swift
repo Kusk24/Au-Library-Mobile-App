@@ -18,7 +18,14 @@ struct FavoriteList: View {
                 ScrollView {
                     
                     ForEach(favoriteBooks) { book in
-                        BookCard(book: book)
+                        NavigationLink(value: book) {
+                            BookCard(book: book)
+                                .padding(.horizontal)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    .navigationDestination(for: Book.self) { book in
+                        BookDetailView(book: book)
                     }
                     
                 }
